@@ -4,28 +4,33 @@ import Footer from "./components/footer/Footer"
 import Cadastro from "./pages/cadastro/Cadastro"
 import Login from "./pages/login/Login"
 import Home from "./pages/home/Home"
+import { AuthProvider } from "./contexts/AuthContext"
 
 function App() {
 
 
   return (
     <>
-      <BrowserRouter>
+    <AuthProvider>
 
-        <NavBar />
+        <BrowserRouter>
 
-        <div className="min-h-[80vh]">
-          <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/home" element={<Home />} />
-              <Route path="/cadastro" element={<Cadastro />} />
-              <Route path="/login" element={<Login />} />
-          </Routes>
-        </div>
+          <NavBar />
 
-        <Footer />
+          <div className="min-h-[80vh]">
+            <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/login" element={<Login />} />
+            </Routes>
+          </div>
+
+          <Footer />
+          
+        </BrowserRouter>
         
-      </BrowserRouter>
+      </AuthProvider>
     </>
   )
 }
