@@ -18,17 +18,15 @@ function Navbar() {
         <>
 			<div className="flex justify-center w-full p-4 text-white bg-indigo-900">
 				<div className="container flex justify-between text-lg">
-					<Link
-						to="/home"
-						className="text-2xl font-bold
-					">
-						Blog Pessoal
-					</Link>
+
+					<Link to="/home" className="text-2xl font-bold">Blog Pessoal</Link>
+
 					<div className="flex gap-4">
-						Postagens Temas Cadastrar tema Perfil
-						<Link to='' onClick={logout} className='hover:underline'>
-							Sair
-						</Link>
+						Postagens 
+						<Link to='/temas' className='hover:underline'>Temas</Link>
+						<Link to='/cadastrartema' className='hover:underline'>Cadastrar tema</Link>
+						 Perfil
+						<Link to='' onClick={logout} className='hover:underline'>Sair</Link>
 					</div>
 				</div>
 			</div>
