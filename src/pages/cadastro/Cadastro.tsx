@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service'
 import { RotatingLines } from 'react-loader-spinner'
+import { ToastAlerta } from '../../utils/ToastAlerta'
 
 function Cadastro() {
 
@@ -32,11 +33,21 @@ function Cadastro() {
     navigate('/login')
   }
 
+  function toPascalCase(texto: string): string {
+    return texto
+      .toLowerCase()
+      .split(' ')
+      .map(palavra => palavra.charAt(0).toUpperCase() + palavra.slice(1))
+      .join(' ')
+  }
+
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>){
-    setUsuario({
-      ...usuario,
-      [e.target.name]: e.target.value
-    })
+    const{name, value} = e.target;
+
+     setUsuario(prevUsuario => ({
+      ...prevUsuario,
+      [name]: name === 'nome' ? toPascalCase(value): value
+    }))
   }
 
   function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>){
@@ -53,13 +64,13 @@ function Cadastro() {
       try {
         
         await cadastrarUsuario('/usuarios/cadastrar', usuario, setUsuario)
-        alert('Usuário cadastrado com sucesso!')
+        ToastAlerta('Usuário cadastrado com sucesso!', 'sucesso')
 
       } catch (error) {
-        alert('Erro ao cadastrar o usuário!')
+        ToastAlerta('Erro ao cadastrar o usuário!', 'erro')
       }
     } else{
-      alert('Os dados do usuário estão inconsistentes! Verifique as informações e tente novamente.')
+      ToastAlerta('Os dados do usuário estão inconsistentes! Verifique as informações e tente novamente.', 'info')
       setUsuario({...usuario, senha: ''})
       setConfirmarSenha('')
     }
